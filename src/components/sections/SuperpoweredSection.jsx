@@ -231,7 +231,7 @@ const CARD_DATA = [
     avatars: ["/assets/avatars/1.png", "/assets/avatars/2.png", "/assets/avatars/3.png", "/assets/avatars/4.png", "/assets/avatars/5.png"],
     agenda: [
       { label: 'Objectives & Metrics', done: true, icon: '🎯' },
-      { label: "Roundtable Updates + What's Next", done: true, icon: '💬', hasHighlight: true, badgeText: "Shoutouts" },
+      { label: "Roundtable Updates + What's Next", done: true, icon: '💬', hasHighlight: true, badgeText: "Deercember" },
       { label: 'Blockers', done: false, icon: '🛑' },
       { label: 'Shout-outs', done: false, icon: '🎉' },
       { label: 'Next steps', done: false, icon: '🚶' },
@@ -244,7 +244,7 @@ const CARD_DATA = [
     title: 'Febby <> Augustine',
     time: 'Nov 15th at 1 — 2pm',
     schedule: 'Weekly on Thursday',
-    joinButtonText: 'Join Google Meet',
+    joinButtonText: 'Join Meet',
     joinButtonIcon: 'meet',
     avatars: ["/assets/avatars/1.png", "/assets/avatars/2.png"],
     agenda: [
@@ -296,7 +296,7 @@ function MeetingCardWrapper({ card }) {
 
 export default function SuperpoweredSection() {
   return (
-    <section className="w-full overflow-hidden bg-[#F5F3EF] py-20">
+    <section className="w-full overflow-hidden bg-[#F5F3EF] py-5">
       <div className="mx-auto max-w-2xl px-6 text-center">
         <h2 className="text-4xl font-bold tracking-tight text-[#1A1033] sm:text-5xl">
           A superpowered meeting in every calendar event
@@ -311,7 +311,14 @@ export default function SuperpoweredSection() {
         - Swapped overlapping margins for uniform `gap-4 lg:gap-6`.
         - `lg:justify-center` keeps the entire track perfectly centered on desktop, forcing the overflow to the edges.
       */}
-      <div className="mt-16 flex overflow-x-auto snap-x snap-mandatory px-6 pb-10 gap-4 lg:gap-6 lg:justify-center [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div
+        className="
+          mt-16 flex snap-x snap-mandatory px-6 pb-10 pt-4 gap-4 lg:gap-6 lg:justify-center
+          overflow-x-auto lg:overflow-x-hidden
+          overflow-y-visible
+          [scrollbar-width:none] [&::-webkit-scrollbar]:hidden
+        "
+      >
         {CARD_DATA.map((card) => (
           <MeetingCardWrapper key={card.id} card={card} />
         ))}

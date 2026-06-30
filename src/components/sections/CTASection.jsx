@@ -39,13 +39,13 @@ export default function CTASection() {
           together.
         </p>
 
-        <div className="relative mt-12 max-w-md mx-auto p-1.5 rounded-full flex items-center bg-gradient-to-r from-[#DF6D77] via-[#9154B9] to-[#69429A] shadow-xl shadow-purple-900/20">
+        <div className="relative mt-12 max-w-md mx-auto p-1 rounded-full flex items-center gap-1.5 bg-gradient-to-r from-[#DF6D77] via-[#9154B9] to-[#69429A] shadow-xl shadow-purple-900/20">
           <input
             type="email"
             placeholder="Enter your email"
-            className="flex-1 bg-transparent border-none outline-none text-white placeholder-white/70 px-5 py-3 text-base"
+            className="min-w-0 flex-1 bg-transparent border-none outline-none text-white placeholder-white/70 px-3 py-2 text-sm sm:text-base"
           />
-          <button className="bg-[#533876] hover:bg-[#422A60] transition-colors text-white font-medium rounded-full px-7 py-3 shrink-0">
+          <button className="bg-[#533876] hover:bg-[#422A60] transition-colors text-white font-medium rounded-full px-3 py-2 text-sm sm:px-7 sm:py-3 sm:text-base shrink-0 whitespace-nowrap">
             Get Ready
           </button>
         </div>

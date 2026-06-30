@@ -1,16 +1,27 @@
 import React from "react";
 import Navbar from "../layout/Navbar";
 import { PillBadge } from "../ui/Shared";
-import { MacWindowFrame, LeftSidebar, RightSidebar, TeamMeetingCard } from "../ui/CalendarAppUI";
+import { TeamMeetingCard } from "../ui/CalendarAppUI";
+import CalendarAppShowcase from "../ui/CalendarAppShowcase";
 
 /* ============================================================
    HERO SPECIFIC AGENDA (Overrides Defaults)
    ============================================================ */
 const heroAgenda = [
-  { label: "Objectives & Metrics", done: true, icon: "🎯", avatar: "/assets/avatars/1.png" },
+  {
+    label: "Objectives & Metrics",
+    done: true,
+    icon: "🎯",
+    avatar: "/assets/avatars/1.png",
+  },
   { label: "The News", done: true, icon: "📰" },
-  // PillBadge moved to 3rd item, text changed to "S"
-  { label: "S", done: false, icon: "🎉", hasHighlight: true, badgeText: "Deercember" },
+  {
+    label: "S",
+    done: false,
+    icon: "🎉",
+    hasHighlight: true,
+    badgeText: "Deercember",
+  },
   { label: "", done: false, icon: "" },
 ];
 
@@ -22,7 +33,7 @@ export default function HeroSection() {
   return (
     <div className="bg-[#F5F3EF] min-h-screen w-full font-[Inter]">
       <Navbar />
-      
+
       <section className="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
         <p className="text-xs font-semibold tracking-widest text-[#6C47FF] uppercase mb-5">
           Your New Calendar
@@ -31,7 +42,6 @@ export default function HeroSection() {
         <h1 className="font-bold tracking-tight text-[#1A1033] leading-[1.1] text-5xl sm:text-6xl">
           <span className="block">The Calendar</span>
           <span className="block text-center mt-4 sm:mt-2">
-            
             {/* ================= MOBILE VIEW ================= */}
             <span className="block sm:hidden">you need</span>
             <span className="block sm:hidden mt-3">
@@ -59,7 +69,6 @@ export default function HeroSection() {
                 </span>
               </span>
             </span>
-
           </span>
         </h1>
 
@@ -72,16 +81,54 @@ export default function HeroSection() {
           to instantly make your meetings better.
         </p>
 
-        {/* ================= MAC WINDOW ASSEMBLY ================= */}
-        <div className="mt-12 w-full max-w-5xl mx-auto">
-          <MacWindowFrame>
-            <div className="flex">
-              <LeftSidebar />
-              {/* Passed the custom agenda and the new strikethrough flag */}
-              <TeamMeetingCard agenda={heroAgenda} strikethroughDone={false} />
-              <RightSidebar />
-            </div>
-          </MacWindowFrame>
+        {/* ================================================================
+            STACKED ASSEMBLY: underlying dark calendar app + floating card
+            ----------------------------------------------------------------
+            - CalendarAppShowcase now sizes itself intrinsically (it is no
+              longer a `h-full`-filling layer), and its own floating date
+              badge spills past its bottom edge by design — so this wrapper
+              must NOT use overflow-hidden, or that badge gets clipped.
+            - Because the calendar app has real intrinsic height, it never
+              "disappears" on narrow screens the way an absolutely-
+              positioned, height-less layer could; it always reserves its
+              own space, and on small screens its side panels collapse via
+              their own `hidden md:flex` / `hidden lg:flex` rules instead
+              of the whole thing vanishing.
+            - The floating Mac window sits in a later (higher z-index)
+              layer, intentionally larger than the box beneath it and
+              vertically centered with a translate, so its top and bottom
+              edges spill past the underlying box's boundary — exactly the
+              "floating card" effect from the Figma reference — instead of
+              being clipped inside it.
+        ================================================================ */}
+        <div className="relative mt-16 sm:mt-20 w-full max-w-5xl mx-auto pb-8">
+          {/* ---- Layer 1: underlying full calendar app (light theme) ---- */}
+          {/* ---- Layer 1: underlying full calendar app (light theme) ---- */}
+          {/* Add 'hidden xl:block' to hide it on LG and below */}
+          <div className="hidden xl:block">
+            <CalendarAppShowcase theme="light" />
+          </div>
+
+          {/* ---- Layer 2: floating Isolated Modal, overflowing top/bottom ---- */}
+          <div
+            className="
+              relative xl:absolute left-1/2 top-1/2 z-20
+              -translate-x-1/2 -translate-y-1/2
+              mt-96 xl:mt-0
+              -mb-96
+              w-[92%] sm:w-[520px] md:w-[580px]
+              scale-[0.86] sm:scale-90
+            "
+          >
+            {/* Replaced Mac Window with just the isolated TeamMeetingCard.
+                Added heavy shadows, border, and rounded corners to the card itself.
+            */}
+            <TeamMeetingCard
+              className="flex-1 min-w-0 bg-white shadow-[0_45px_90px_-20px_rgba(26,16,51,0.45)] ring-1 ring-black/5 rounded-2xl overflow-hidden"
+              agenda={heroAgenda}
+              strikethroughDone={false}
+            />
+          </div>
         </div>
       </section>
     </div>

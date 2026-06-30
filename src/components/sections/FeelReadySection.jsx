@@ -105,7 +105,7 @@ export default function FeelReadySection() {
       <div
         className="
           flex overflow-x-auto snap-x snap-mandatory gap-4 pb-12 w-full
-          lg:grid lg:grid-cols-12 lg:gap-6 lg:overflow-visible lg:pb-0
+          lg:grid lg:grid-cols-12 lg:gap-6 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden
         "
       >
         {/* ── Card 1 · Time Travel ── */}

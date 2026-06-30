@@ -1,11 +1,13 @@
 import React from 'react';
 import { WavyUnderline } from '../ui/WavyUnderline';
+import CalendarAppShowcase from '../ui/CalendarAppShowcase';
 
 export default function CalendarSection() {
   return (
     <section className="bg-[#F5F3EF] relative overflow-hidden pt-24 pb-16">
       {/* Ambient Glow */}
-      <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[80vw] max-w-[800px] h-[400px] bg-[#6B4AC7]/15 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-[30%] left-1/2 -translate-x-1/2 w-[80vw] max-w-[800px] h-[400px] bg-[#2D386E]/50 blur-[80px] rounded-full pointer-events-none" />
+
 
       {/* Header */}
       <div className="max-w-3xl mx-auto text-center z-10 relative px-6">
@@ -63,11 +65,8 @@ export default function CalendarSection() {
 
       {/* Hero Images */}
       <div className="mt-16 max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        <img
-          src="/assets/ui-calendar.png"
-          alt="Ready Calendar Interface"
-          className="w-full h-auto drop-shadow-[0_20px_50px_rgba(26,16,51,0.2)] rounded-t-2xl relative z-10"
-        />
+        
+        <CalendarAppShowcase theme='dark' />
         <img
           src="/assets/ui-calendar-icon.png"
           alt="Calendar Icon"
