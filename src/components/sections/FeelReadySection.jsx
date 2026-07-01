@@ -15,15 +15,19 @@ const OvalAccent = () => (
     >
       {/* Slightly imperfect ellipse path for hand-drawn feel */}
       <path
-        d="M8 22 C6 10, 28 2, 60 2 C92 2, 116 10, 114 22 C116 34, 92 42, 60 42 C28 42, 6 34, 8 22 Z"
-        stroke="#5242FF"
-        strokeWidth="2.4"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-        pathLength="1"
-        strokeDasharray="0.04 0.01 0.95"
-      />
+  /* M 68 1: Start at top-center 
+     C 40 0, 10 10, 0 22: Smoother entry into the left curve
+     C 0 34, 20 42, 60 42: Bottom curve
+     C 100 42, 120 34, 120 22: Right side curve
+     C 120 10, 80 2, 60 8: End tip 
+  */
+  d="M 68 1 C 40 0, 10 10, 4 22 C 0 34, 20 42, 60 42 C 100 42, 120 34, 120 22 C 120 10, 80 2, 60 8"
+  stroke="#5242FF"
+  strokeWidth="2.4"
+  strokeLinecap="round"
+  strokeLinejoin="round"
+  fill="none"
+/>
     </svg>
   </span>
 );
@@ -31,7 +35,6 @@ const OvalAccent = () => (
 // ─── Bento Card ───────────────────────────────────────────────────────────────
 const BentoCard = ({
   eyebrow,
-  title,
   description,
   imageSrc,
   imageAlt,
@@ -43,31 +46,35 @@ const BentoCard = ({
   <div className={`relative flex flex-col ${className}`}>
     {accentEl}
 
-    <div
-      className={`w-full h-full flex flex-col rounded-[28px] overflow-hidden shadow-xl shadow-black/10 ${gradientClass}`}
-    >
-      <div className="relative z-10 px-8 pt-8 pb-2 shrink-0">
-        {eyebrow && (
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/50 mb-3">
-            {eyebrow}
-          </p>
-        )}
-        <h3 className="text-[22px] font-bold text-white leading-snug mb-2">
-          {title}
-        </h3>
-        <p className="text-[13.5px] text-white/70 leading-relaxed max-w-xs">
-          {description}
-        </p>
-      </div>
+    {/* OUTER MASK: Handles the clipping boundary for the whole card */}
+    <div className="relative w-full h-full flex flex-col rounded-[28px] overflow-hidden shadow-xl shadow-black/10">
+      
+      {/* LAYER 1: Background & Borders. Separated so they don't clip the inner content. */}
+      <div className={`absolute inset-0 rounded-[28px] ${gradientClass}`} />
 
-      <div className="relative w-full flex-1 min-h-[180px] mt-4">
-        <img
-          src={imageSrc}
-          alt={imageAlt}
-          // The imageClass prop now dictates the horizontal positioning and width
-          className={`absolute top-0 h-full object-cover object-left-top ${imageClass}`}
-        />
+      {/* LAYER 2: Content (Text & Image). Stacked on top of borders via z-10 */}
+      <div className="relative z-10 flex flex-col w-full h-full">
+        <div className="relative z-10 px-8 pt-8 pb-2 shrink-0">
+          {eyebrow && (
+            <h3 className="text-[20px] font-normal text-white mb-3">
+              {eyebrow}
+            </h3>
+          )}
+          <p className="text-[13.5px] text-white leading-relaxed max-w-xl">
+            {description}
+          </p>
+        </div>
+
+        <div className="relative w-full flex-1 min-h-[180px] mt-4">
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            className={`absolute top-0 h-full w-full object-cover object-top ${imageClass}`}
+            
+          />
+        </div>
       </div>
+      
     </div>
   </div>
 );
@@ -87,12 +94,12 @@ export default function FeelReadySection() {
     >
       {/* ── Header ── */}
       <div className="text-center mb-16 max-w-2xl mx-auto">
-        <h2 className="text-[42px] sm:text-5xl lg:text-[56px] font-extrabold text-[#1A1033] leading-[1.15] tracking-tight mb-5">
+        <h2 className="text-[42px] sm:text-5xl lg:text-[56px] font-extrabold text-[#333333] leading-[1.15] tracking-tight mb-5">
           Leave <OvalAccent /> meeting
           <br />
           feeling Ready
         </h2>
-        <p className="text-[18px] text-[#71717A] max-w-md mx-auto leading-relaxed">
+        <p className="text-[18px] text-[#333333] max-w-md mx-auto leading-relaxed">
           Never lose track of a decision or forget a follow up. Ready keeps you
           and your team organized before, during, and after every meeting.
         </p>
@@ -105,54 +112,60 @@ export default function FeelReadySection() {
       <div
         className="
           flex overflow-x-auto snap-x snap-mandatory gap-4 pb-12 w-full
-          lg:grid lg:grid-cols-12 lg:gap-6 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden
+          lg:grid lg:grid-cols-14 lg:gap-6 lg:overflow-visible lg:pb-0 [&::-webkit-scrollbar]:hidden
         "
       >
         {/* ── Card 1 · Time Travel ── */}
         <BentoCard
           eyebrow="Time Travel"
-          title="Ready connects your meetings together."
-          description="Jump back in time to see what was discussed or leap forward to get a head start."
+          description={
+            <>
+              Ready connects your meetings together. Jump back in time to see what was discussed or leap forward to get a head start.
+            </>
+          }
           imageSrc="/assets/ui-timetravel.png"
           imageAlt="Time travel meeting UI showing calendar event"
-          gradientClass="bg-gradient-to-br from-[#F5C4A1] via-[#C9A8E2] to-[#9B82E8]"
-          className="shrink-0 w-[80vw] snap-center min-h-[380px] lg:w-auto lg:col-span-5 lg:col-start-3 lg:row-start-1"
+          gradientClass="bg-gradient-to-br from-[#cea97d] via-[#ad7a92] to-[#9669cb]"
+          className="shrink-0 w-[80vw] snap-center min-h-[380px] lg:w-auto lg:col-span-7 lg:col-start-2 lg:row-start-1"
           accentEl={
             <AccentLines className="hidden lg:block absolute top-28 -right-14 rotate-180 z-20 opacity-100" />
           }
-          // NEW: Aligns with px-8 text, bleeds off the right edge
           imageClass="left-8 w-full"
         />
 
         {/* ── Card 2 · Threads ── */}
         <BentoCard
           eyebrow="Threads"
-          title="Ready organizes everything for you in Threads."
-          description="Never worry about folders again."
+          description={
+            <>
+              Ready organizes everything for you in Threads. Never worry about folders again.
+            </>
+          }
           imageSrc="/assets/ui-threads.png"
           imageAlt="Threads sidebar UI showing tasks and inbox"
-          gradientClass="bg-gradient-to-br from-[#5B3FA6] via-[#6B4AC7] to-[#3B2080]"
-          className="shrink-0 w-[80vw] snap-center min-h-[380px] lg:w-auto lg:col-span-3 lg:col-start-5 lg:row-start-2 lg:mt-2"
+          gradientClass="bg-gradient-to-r from-[#3b1096] to-[#a571a1] border-t-[28px] border-t-[#55269c] border-b-[28px] border-b-[#55269c]"
+          className="shrink-0 w-[80vw] snap-center min-h-[480px] lg:w-auto lg:col-span-3 lg:col-start-6 lg:row-start-2 lg:row-span-1 lg:mt-2 lg:max-w-[420px] lg:mx-auto"
           accentEl={
-            <AccentLines className="hidden lg:block absolute -top-2 -left-14 -rotate-30 z-20 opacity-100" />
+            <AccentLines className="hidden lg:block absolute -top-4 -left-14 -rotate-30 z-20 opacity-100" />
           }
-          // NEW: Aligns with px-8 text, bleeds off the right edge
           imageClass="left-8 w-full"
         />
 
         {/* ── Card 3 · Task Sidebar ── */}
         <BentoCard
           eyebrow="Task Sidebar"
-          title="See all your tasks and action items from across your meetings."
-          description="All in one place, right alongside your calendar."
+          description={
+            <>
+              See all your tasks and action items from across your meetings. All in one place, right alongside your calendar.
+            </>
+          }
           imageSrc="/assets/ui-sidebar.png"
           imageAlt="Task sidebar showing inbox and calendar view"
-          gradientClass="bg-gradient-to-b from-[#7B5FD4] via-[#5A3FB5] to-[#2D1B69]"
-          className="shrink-0 w-[80vw] snap-center min-h-[380px] lg:w-auto lg:col-span-4 lg:col-start-8 lg:row-start-1 lg:row-span-1 lg:translate-y-44"
+          gradientClass="bg-gradient-to-r from-[#9b6cb6] to-[#5e2d9a] border-l-[28px] border-l-[#7b4096] border-r-[28px] border-r-[#7b4096]"
+          className="shrink-0 w-[80vw] snap-center min-h-[380px] lg:w-auto lg:col-span-3 lg:col-start-9 lg:row-start-1 lg:row-span-1 lg:translate-y-44"
           accentEl={
-            <AccentLines className="hidden lg:block absolute -bottom-16 -left-17 -rotate-90 z-20 opacity-100" />
+            <AccentLines className="hidden lg:block absolute -bottom-16 -left-2 -rotate-90 z-20 opacity-100" />
           }
-          // NEW: Flush left, stops before the right edge
           imageClass="left-0 w-[85%] md:w-[90%]"
         />
       </div>

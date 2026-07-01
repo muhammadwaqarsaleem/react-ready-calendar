@@ -296,14 +296,25 @@ function MeetingCardWrapper({ card }) {
 
 export default function SuperpoweredSection() {
   return (
-    <section className="w-full overflow-hidden bg-[#F5F3EF] py-5">
+    <section className="w-full overflow-hidden bg-[#F5F3EF] py-5 md:py-10">
       <div className="mx-auto max-w-2xl px-6 text-center">
-        <h2 className="text-4xl font-bold tracking-tight text-[#1A1033] sm:text-5xl">
-          A superpowered meeting in every calendar event
+        <h2 className="text-4xl font-bold tracking-tight text-[#333333] sm:text-5xl">
+          A superpowered 
+          <span className="sm:hidden"> </span>
+          <span className="hidden sm:block" aria-hidden="true" />
+           meeting in every 
+           <span className="sm:hidden"> </span>
+          <span className="hidden sm:block" aria-hidden="true" />
+            calendar event
         </h2>
-        <p className="mt-4 text-base text-[#71717A] sm:text-lg">
-          Calendar events in Ready are instantly transformed into collaborative meeting spaces
-          designed to create the perfect meeting in seconds.
+        <p className="mt-4 text-base text-[#333333] sm:text-lg">
+          Calendar events in Ready are instantly transformed
+          <span className="sm:hidden"> </span>
+          <span className="hidden sm:block" aria-hidden="true" />
+           into collaborative meeting spaces designed to create
+          <span className="sm:hidden"> </span>
+          <span className="hidden sm:block" aria-hidden="true" />
+           the perfect meeting in seconds.
         </p>
       </div>
 

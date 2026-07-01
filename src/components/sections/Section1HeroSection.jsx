@@ -35,18 +35,18 @@ export default function HeroSection() {
       <Navbar />
 
       <section className="max-w-5xl mx-auto px-6 pt-16 pb-12 text-center">
-        <p className="text-xs font-semibold tracking-widest text-[#6C47FF] uppercase mb-5">
+        <p className="text-xs font-medium tracking-widest text-[#7366FE] uppercase mb-5">
           Your New Calendar
         </p>
 
-        <h1 className="font-bold tracking-tight text-[#1A1033] leading-[1.1] text-5xl sm:text-6xl">
+        <h1 className="font-bold tracking-tight text-[#333333] leading-[1.1] text-5xl sm:text-6xl">
           <span className="block">The Calendar</span>
           <span className="block text-center mt-4 sm:mt-2">
             {/* ================= MOBILE VIEW ================= */}
             <span className="block sm:hidden">you need</span>
             <span className="block sm:hidden mt-3">
               <span className="relative inline-flex items-center">
-                <span className="bg-[#DDEBFF] px-3 py-1 rounded-l-xl rounded-r-sm">
+                <span className="bg-[#d5d0f4] px-3 py-1 rounded-l-xl rounded-r-sm">
                   to meet
                 </span>
                 <span className="absolute right-0 bottom-0 h-[calc(100%+0.25rem)] w-[2.5px] bg-[#7366FE]" />
@@ -60,7 +60,7 @@ export default function HeroSection() {
             <span className="hidden sm:inline-flex items-start justify-center gap-3">
               <span className="self-center mt-1">you</span>
               <span className="relative inline-flex items-center">
-                <span className="bg-[#DDEBFF] px-3 py-1 rounded-l-xl rounded-r-sm">
+                <span className="bg-[#d5d0f4] px-3 py-1 rounded-l-xl rounded-r-sm">
                   need to meet
                 </span>
                 <span className="absolute right-0 bottom-0 h-[calc(100%+0.5rem)] w-[2.5px] bg-[#7366FE]" />
@@ -75,8 +75,10 @@ export default function HeroSection() {
         {/* Formatted 3-line paragraph */}
         <p className="text-[#71717A] text-base md:text-lg max-w-xl mx-auto mt-6 leading-relaxed">
           Ready evolves your calendar into a living,
+          <span className="sm:hidden"> </span>
           <span className="hidden sm:block" aria-hidden="true" />
           breathing multiplayer workspace for teams
+          <span className="sm:hidden"> </span>
           <span className="hidden sm:block" aria-hidden="true" />
           to instantly make your meetings better.
         </p>
@@ -101,11 +103,11 @@ export default function HeroSection() {
               "floating card" effect from the Figma reference — instead of
               being clipped inside it.
         ================================================================ */}
-        <div className="relative mt-16 sm:mt-20 w-full max-w-5xl mx-auto pb-8">
+        <div className="relative mt-16 sm:mt-20 w-full max-w-7xl mx-auto pb-8">
           {/* ---- Layer 1: underlying full calendar app (light theme) ---- */}
           {/* ---- Layer 1: underlying full calendar app (light theme) ---- */}
           {/* Add 'hidden xl:block' to hide it on LG and below */}
-          <div className="hidden xl:block">
+          <div className="hidden xl:block w-full">
             <CalendarAppShowcase theme="light" />
           </div>
 
@@ -116,8 +118,8 @@ export default function HeroSection() {
               -translate-x-1/2 -translate-y-1/2
               mt-96 xl:mt-0
               -mb-96
-              w-[92%] sm:w-[520px] md:w-[580px]
-              scale-[0.86] sm:scale-90
+              w-[100%] sm:w-[520px] md:w-[620px]
+              scale-[0.86] sm:scale-100
             "
           >
             {/* Replaced Mac Window with just the isolated TeamMeetingCard.

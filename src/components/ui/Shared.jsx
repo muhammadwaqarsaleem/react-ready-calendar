@@ -16,7 +16,7 @@ import React from "react";
    ============================================================ */
 
 // Updated to accept real image paths and render them
-export function AvatarStack({ avatars = [], max = 5, size = "w-6 h-6", ringColor = "#FFFFFF" }) {
+export function AvatarStack({ avatars = [], max = 5, size = "w-6 h-6", ringColor = "transparent" }) {
   const visible = avatars.slice(0, max);
   const overflow = avatars.length - visible.length;
 
@@ -47,7 +47,7 @@ export function AvatarStack({ avatars = [], max = 5, size = "w-6 h-6", ringColor
 // Updated with your exact hex codes and rounded-rectangle shape
 export function PillBadge({ children }) {
   return (
-    <span className="px-3 py-2 text-[12px] tracking-[0.08em] font-medium rounded-lg inline-flex items-center bg-[#7366FE] text-white shadow-sm">
+    <span className="px-3 py-2 text-[12px] tracking-[0.08em] font-normal rounded-lg inline-flex items-center bg-[#7366FE] text-white shadow-sm">
       {children}
     </span>
   );
